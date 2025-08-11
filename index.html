@@ -1,0 +1,3096 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caja Registradora ASINMEX | Comedor</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #FF9800, #FFECB3);
+            padding: 25px;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.05"><text x="30" y="30" font-family="Arial" font-size="30" fill="%23ffffff" transform="rotate(45 50 50)">🍽️</text></svg>');
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(232, 90, 0, 0.3);
+            padding: 25px;
+            border-top: 6px solid #FF5722;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="150" height="150" opacity="0.03"><path fill="%23FF5722" d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>');
+            opacity: 0.07;
+            z-index: 0;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            /* 👈 Esto pone el logo arriba y el texto abajo */
+            align-items: center;
+            /* 👈 Centra todo horizontalmente */
+            text-align: center;
+            /* 👈 Centra el texto también */
+            filter: invert(0.5);
+            /* Solo 50% invertido */
+        }
+
+        .logo {
+            width: 150px;
+            /* o el tamaño que necesites */
+            margin-bottom: 10px;
+            /* separa el logo del texto */
+        }
+
+
+        .header-text {
+            text-align: left;
+        }
+
+        h1 {
+            color: #E64A19;
+            font-size: 28px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .slogan {
+            color: #666;
+            font-style: italic;
+            font-size: 14px;
+        }
+
+        /* System Time */
+        .system-time {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            background-color: #FFF3E0;
+            border-radius: 8px;
+            padding: 10px 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .system-time-item {
+            flex: 1;
+            text-align: center;
+        }
+
+        .system-time-item strong {
+            display: block;
+            color: #E64A19;
+            margin-bottom: 2px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .system-time-item span {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .turnos {
+            margin-left: auto;
+            background-color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            border: 1px solid #FFE0B2;
+        }
+
+        .turnos strong {
+            color: #E64A19;
+            display: block;
+            font-size: 12px;
+            margin-bottom: 2px;
+        }
+
+        /* Main Content */
+        .content-area {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+
+        /* Menu Section */
+        .menu-section {
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .menu-section h2 {
+            color: #E64A19;
+            margin-bottom: 15px;
+            font-size: 20px;
+            text-align: center;
+            text-transform: uppercase;
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .menu-section h2::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #FF9800, #FF5722);
+            border-radius: 1.5px;
+        }
+
+        .menu-section h2 i {
+            margin-right: 8px;
+        }
+
+        /* Menu Tabs */
+        .menu-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background-color: #FFF3E0;
+            color: #333;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .tab-btn i {
+            margin-right: 6px;
+            font-size: 14px;
+        }
+
+        .tab-btn:hover {
+            background-color: #FFE0B2;
+            transform: translateY(-2px);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #FF9800, #FF5722);
+            color: white;
+            box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3);
+        }
+
+        /* Menu Categories */
+        .menu-category {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .menu-category h3 {
+            color: #F57C00;
+            margin-bottom: 15px;
+            font-size: 18px;
+            position: relative;
+            padding-bottom: 8px;
+            text-transform: capitalize;
+        }
+
+        .menu-category h3::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, #FF9800, transparent);
+            border-radius: 1px;
+        }
+
+        .menu-category h3 i {
+            margin-right: 8px;
+        }
+
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 12px;
+        }
+
+        .menu-item {
+            background-color: white;
+            border-radius: 8px;
+            padding: 12px;
+            cursor: pointer;
+            border: 1px solid #FFE0B2;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .menu-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-color: #FF9800;
+        }
+
+        .menu-item h4 {
+            color: #333;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+
+        .menu-item .price {
+            color: #E64A19;
+            font-weight: 700;
+            font-size: 18px;
+            display: block;
+            text-align: right;
+        }
+
+        /* Ticket Section */
+        .ticket-section {
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .ticket-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="150" height="150"><path fill="%23FF5722" d="M3 22l1.5-1.5L6 22l1.5-1.5L9 22l1.5-1.5L12 22l1.5-1.5L15 22l1.5-1.5L18 22l1.5-1.5L21 22V2l-1.5 1.5L18 2l-1.5 1.5L15 2l-1.5 1.5L12 2l-1.5 1.5L9 2 7.5 3.5 6 2 4.5 3.5 3 2v20zm2-17h14v2H5V5zm0 4h14v2H5V9zm0 4h14v2H5v-2zm0 4h14v2H5v-2z"/></svg>');
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 0;
+        }
+
+        .ticket-section h2 {
+            color: #E64A19;
+            margin-bottom: 15px;
+            font-size: 20px;
+            text-align: center;
+            text-transform: uppercase;
+            position: relative;
+            padding-bottom: 8px;
+            z-index: 1;
+        }
+
+        .ticket-section h2::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #FF9800, #FF5722);
+            border-radius: 1.5px;
+        }
+
+        .ticket-section h2 i {
+            margin-right: 8px;
+        }
+
+        .ticket-items {
+            min-height: 200px;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+            border: 1px solid #FFE0B2;
+            border-radius: 8px;
+            padding: 10px;
+            position: relative;
+            z-index: 1;
+            background-color: white;
+        }
+
+        .empty-ticket {
+            text-align: center;
+            color: #999;
+            padding: 20px 10px;
+        }
+
+        .empty-ticket i {
+            font-size: 30px;
+            color: #FFE0B2;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .ticket-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px dashed #FFE0B2;
+        }
+
+        .ticket-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-number {
+            width: 25px;
+            color: #F57C00;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .item-name {
+            flex-grow: 1;
+            padding: 0 10px;
+            font-size: 14px;
+        }
+
+        .item-price {
+            font-weight: 600;
+            color: #333;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+
+        .remove-btn {
+            color: white;
+            background-color: #F44336;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .remove-btn:hover {
+            background-color: #D32F2F;
+            transform: scale(1.1);
+        }
+
+        .ticket-summary {
+            background-color: #FFF3E0;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            font-size: 14px;
+        }
+
+        .summary-row.total {
+            font-weight: 700;
+            color: #E64A19;
+            font-size: 18px;
+            border-top: 2px dashed #FFE0B2;
+            padding-top: 8px;
+            margin-top: 5px;
+        }
+
+        .payment-method {
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .payment-method span {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #F57C00;
+            font-size: 14px;
+        }
+
+        .payment-options {
+            display: flex;
+            gap: 10px;
+        }
+
+        .payment-options label {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            background-color: white;
+            border: 1px solid #FFE0B2;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            font-size: 14px;
+        }
+
+        .payment-options input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        .payment-options label:hover {
+            background-color: #FFF3E0;
+            border-color: #FF9800;
+        }
+
+        .payment-options input[type="radio"]:checked+label {
+            background-color: #FFF3E0;
+            border-color: #FF9800;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .payment-options i {
+            margin-right: 5px;
+            color: #F57C00;
+        }
+
+        .ticket-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            font-size: 14px;
+        }
+
+        .btn i {
+            margin-right: 5px;
+            font-size: 14px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #clear-ticket {
+            background-color: #F44336;
+        }
+
+        #clear-ticket:hover {
+            background-color: #D32F2F;
+        }
+
+        #register-ticket {
+            background-color: #4CAF50;
+        }
+
+        #register-ticket:hover {
+            background-color: #388E3C;
+        }
+
+        #print-ticket {
+            background-color: #FF9800;
+        }
+
+        #print-ticket:hover {
+            background-color: #F57C00;
+        }
+
+        #save-ticket {
+            background-color: #4CAF50;
+        }
+
+        #save-ticket:hover {
+            background-color: #388E3C;
+        }
+
+        #export-records {
+            background-color: #2196F3;
+        }
+
+        #export-records:hover {
+            background-color: #1976D2;
+        }
+
+        /* Search box for quick entry */
+        .search-box {
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid #FFE0B2;
+            border-radius: 8px;
+            font-size: 14px;
+            background-color: #FFF3E0;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #FF9800;
+            box-shadow: 0 0 8px rgba(255, 152, 0, 0.3);
+            background-color: white;
+        }
+
+        .search-box i {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #F57C00;
+        }
+
+        /* Add notification */
+        .add-notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #4CAF50, #388E3C);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .nomina-input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid #FFE0B2;
+            border-radius: 8px;
+            font-size: 14px;
+            background-color: #FFF3E0;
+            transition: all 0.3s ease;
+        }
+
+        .nomina-input:focus {
+            outline: none;
+            border-color: #FF9800;
+            box-shadow: 0 0 8px rgba(255, 152, 0, 0.3);
+            background-color: white;
+        }
+
+        /* Sales Record Section */
+        .sales-record-section {
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 25px;
+            position: relative;
+        }
+
+        .sales-record-section h2 {
+            color: #E64A19;
+            margin-bottom: 15px;
+            font-size: 20px;
+            text-align: center;
+            text-transform: uppercase;
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .sales-record-section h2::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #FF9800, #FF5722);
+            border-radius: 1.5px;
+        }
+
+        .sales-record-table-container {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #FFE0B2;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .sales-record-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .sales-record-table th,
+        .sales-record-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #FFE0B2;
+            font-size: 14px;
+        }
+
+        .actions-cell {
+            text-align: center;
+            width: 60px;
+        }
+
+        .delete-record-btn {
+            background-color: #F44336;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 0 auto;
+            transition: all 0.3s ease;
+        }
+
+        .delete-record-btn:hover {
+            background-color: #D32F2F;
+            transform: scale(1.1);
+        }
+
+        .sales-record-table th {
+            background-color: #FFF3E0;
+            color: #E64A19;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+
+        .sales-record-table tr:hover {
+            background-color: #FFF8E1;
+        }
+
+        .sales-record-actions {
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 20px;
+            padding: 12px;
+            background-color: #FFF3E0;
+            border-radius: 12px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* Estilos para las secciones de agregar */
+        .add-section {
+            background-color: #FFF3E0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            border: 1px solid #FFE0B2;
+        }
+
+        .add-section h3 {
+            color: #F57C00;
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .add-section input,
+        .add-section select {
+            width: 100%;
+            padding: 8px 12px;
+            margin-bottom: 10px;
+            border: 1px solid #FFE0B2;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .add-section input:focus,
+        .add-section select:focus {
+            outline: none;
+            border-color: #FF9800;
+            box-shadow: 0 0 6px rgba(255, 152, 0, 0.3);
+        }
+
+        .add-section button {
+            background: linear-gradient(135deg, #FF9800, #FF5722);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .add-section button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255, 87, 34, 0.3);
+        }
+
+        /* Modal para cargar Excel */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            transform: translateY(0);
+            animation: modalAppear 0.3s ease;
+        }
+
+        @keyframes modalAppear {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-title {
+            color: #E64A19;
+            margin-bottom: 15px;
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .modal-message {
+            margin-bottom: 25px;
+            color: #555;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .excel-upload-area {
+            border: 2px dashed #FF9800;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            background-color: #FFF8E1;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .excel-upload-area:hover,
+        .excel-upload-area.highlight {
+            border-color: #E64A19;
+            background-color: #FFF3E0;
+        }
+
+        .excel-upload-area i {
+            font-size: 40px;
+            color: #FF9800;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .modal-btn {
+            background: linear-gradient(135deg, #FF9800, #FF5722);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 87, 34, 0.3);
+        }
+
+        .excel-file-info {
+            display: none;
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #E8F5E9;
+            border-radius: 8px;
+            text-align: left;
+        }
+
+        .excel-file-info strong {
+            display: block;
+            color: #388E3C;
+            margin-bottom: 5px;
+        }
+
+        .excel-file-info span {
+            display: block;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            .menu-section h2,
+            .ticket-section h2 {
+                font-size: 18px;
+            }
+
+            .menu-items {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            }
+
+            .payment-options {
+                flex-direction: column;
+            }
+
+            .ticket-actions {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .content-area {
+                grid-template-columns: 1fr;
+            }
+
+            .system-time {
+                flex-wrap: wrap;
+            }
+
+            .menu-tabs {
+                flex-wrap: wrap;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                padding: 0;
+                margin: 0;
+                border: none;
+            }
+
+            .menu-section,
+            .search-box,
+            .payment-method,
+            .ticket-actions,
+            .footer,
+            .menu-tabs,
+            .sales-record-section {
+                display: none;
+            }
+
+            .content-area {
+                display: block;
+            }
+
+            .ticket-section {
+                box-shadow: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            .header {
+                margin-bottom: 10px;
+            }
+
+            .system-time {
+                margin-bottom: 10px;
+                box-shadow: none;
+            }
+
+            .ticket-section h2 {
+                margin-bottom: 10px;
+            }
+
+            .ticket-summary {
+                margin-bottom: 0;
+            }
+
+            /* Agregamos un mensaje de agradecimiento al final del ticket impreso */
+            .ticket-summary::after {
+                content: "¡Gracias por su preferencia!";
+                display: block;
+                text-align: center;
+                margin-top: 15px;
+                padding-top: 10px;
+                border-top: 1px dashed #ccc;
+                font-style: italic;
+            }
+        }
+
+        /* Estilos para el panel de admin */
+        .admin-sections {
+            display: none;
+            /* Oculto por defecto */
+        }
+
+        .admin-mode-active .admin-sections {
+            display: block;
+            /* Visible cuando el modo admin está activo */
+        }
+
+        .admin-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #FF9800;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .admin-toggle:hover {
+            transform: translateY(-3px);
+            background: #F57C00;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .admin-toggle i {
+            margin-right: 8px;
+        }
+
+        .item-edit-btn,
+        .category-edit-btn {
+            background: #FF9800;
+            color: white;
+            border: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 12px;
+            margin-left: 5px;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .admin-mode-active .menu-item:hover .item-edit-btn,
+        .admin-mode-active .tab-btn:hover .category-edit-btn {
+            opacity: 1;
+        }
+
+        .edit-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .edit-modal-content {
+            background-color: white;
+            padding: 25px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .edit-modal-title {
+            color: #E64A19;
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .edit-modal-input {
+            width: 100%;
+            padding: 10px 12px;
+            margin-bottom: 15px;
+            border: 1px solid #FFE0B2;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .edit-modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .edit-modal-btn {
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .edit-modal-save {
+            background: #4CAF50;
+            color: white;
+            border: none;
+        }
+
+        .edit-modal-cancel {
+            background: #F5F5F5;
+            color: #666;
+            border: 1px solid #DDD;
+        }
+
+        .edit-modal-cancel:hover {
+            background: #EEEEEE;
+        }
+
+        .edit-modal-save:hover {
+            background: #388E3C;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Modal para cargar Excel al inicio -->
+    <div id="excelModal" class="modal-overlay">
+        <div class="modal-content">
+            <h2 class="modal-title">Caja Registradora ASINMEX</h2>
+            <p class="modal-message">Bienvenido al sistema de caja registradora del comedor. Para comenzar, cargue el
+                archivo Excel con los datos de los empleados o inicie sin archivo.</p>
+
+            <div class="excel-upload-area" id="dropArea">
+                <i class="fas fa-file-excel"></i>
+                <p>Arrastre el archivo Excel aquí o haga clic para seleccionarlo</p>
+                <input type="file" id="initialExcelFile"
+                    style="position: absolute; width: 100%; height: 100%; opacity: 0; cursor: pointer; top: 0; left: 0;"
+                    accept=".xlsx,.xls">
+            </div>
+
+            <div id="excelFileInfo" class="excel-file-info">
+                <strong>Archivo cargado:</strong>
+                <span id="excelLoadedName">No se ha seleccionado ningún archivo</span>
+                <span id="excelEmployeeCount">0 empleados encontrados</span>
+            </div>
+
+            <button id="startAppBtn" class="modal-btn">Iniciar sin archivo Excel</button>
+            <p style="margin-top: 15px; color: #666; font-size: 12px;">Nota: Si no puede cargar el archivo ahora, puede
+                iniciar sin él y cargarlo más tarde desde las opciones de pago por nómina.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="https://kunale.com/elementos/Asinmex Logo.svg" alt="ASINMEX Logo" class="logo">
+                <div class="header-text">
+                    <h1>Caja Registradora ASINMEX</h1>
+                    <p class="slogan">Comedor de Empleados</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Time -->
+        <div class="system-time">
+            <div class="system-time-item">
+                <strong>Día</strong>
+                <span id="currentDay">-</span>
+            </div>
+            <div class="system-time-item">
+                <strong>Fecha</strong>
+                <span id="currentDate">-</span>
+            </div>
+            <div class="system-time-item">
+                <strong>Hora</strong>
+                <span id="currentTime">-</span>
+            </div>
+            <div class="turnos">
+                <strong>Horario de Servicio</strong>
+                <span>Turno 1: 12:00 - 2:00 PM</span>
+                <span>Turno 2: 9:00 - 11:00 PM</span>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content-area">
+            <!-- Menu Section -->
+            <section id="menu" class="menu-section">
+                <h2><i class="fas fa-book-open"></i> Menú</h2>
+
+                <!-- Tabs de categorías -->
+                <div class="menu-tabs">
+                    <!-- Los tabs serán generados dinámicamente -->
+                </div>
+
+                <!-- Buscar producto o código rápido -->
+                <div class="search-box">
+                    <input type="text" id="productSearch"
+                        placeholder="Buscar producto o ingresar código (Enter para agregar)">
+                    <i class="fas fa-search"></i>
+                </div>
+
+                <!-- Sección donde se listan los productos -->
+                <div class="menu-category" id="productos">
+                    <h3><i class="fas fa-list"></i> Productos Disponibles</h3>
+                    <div id="productos-items" class="menu-items"></div>
+                </div>
+
+                <!-- Apartado para agregar categorías -->
+                <div class="add-section">
+                    <h3><i class="fas fa-folder-plus"></i> Agregar Categoría</h3>
+                    <input type="text" id="newCategoryName" placeholder="Nombre de categoría">
+                    <button id="addCategoryBtn">+ Categoría</button>
+                </div>
+
+                <!-- Apartado para agregar productos -->
+                <div class="add-section">
+                    <h3><i class="fas fa-plus-circle"></i> Agregar Producto</h3>
+                    <input type="text" id="newProductName" placeholder="Nombre del producto">
+                    <input type="number" id="newProductPrice" placeholder="Precio">
+                    <select id="newProductCategory">
+                        <option value="productos">Productos</option>
+                    </select>
+                    <button id="addProductBtn">+ Producto</button>
+                </div>
+            </section>
+
+            <!-- Ticket Section -->
+            <section id="ticket" class="ticket-section">
+                <h2><i class="fas fa-receipt"></i> Ticket</h2>
+
+                <div id="ticket-items" class="ticket-items">
+                    <div class="empty-ticket">
+                        <i class="fas fa-receipt"></i>
+                        <p>No hay productos en el ticket</p>
+                        <p>Haga clic en los items del menú para agregarlos</p>
+                    </div>
+                </div>
+
+                <div class="ticket-summary">
+                    <div class="summary-row">
+                        <span>Subtotal:</span>
+                        <span id="subtotal">$0.00</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total:</span>
+                        <span id="total">$0.00</span>
+                    </div>
+
+                    <!-- Campo para mostrar número de nómina en el ticket -->
+                    <div id="ticketEmployeeInfo" class="employee-info"
+                        style="display: none; margin-top: 10px; text-align: center; font-weight: bold; border-top: 1px dashed #FFE0B2; padding-top: 10px;">
+                        <span>Nómina: <span id="ticketEmployeeNumber">________</span></span>
+                    </div>
+
+                    <!-- Fecha y hora de la venta -->
+                    <div class="timestamp-info"
+                        style="margin-top: 10px; text-align: center; border-top: 1px dashed #FFE0B2; padding-top: 10px;">
+                        <div id="ticket-date" style="font-size: 12px;">Fecha: <span id="ticketDate"></span></div>
+                        <div id="ticket-time" style="font-size: 12px;">Hora: <span id="ticketTime"></span></div>
+                    </div>
+                </div>
+
+                <div class="payment-method">
+                    <span><i class="fas fa-credit-card"></i> Método de pago:</span>
+                    <div class="payment-options">
+                        <input type="radio" id="efectivo" name="payment" value="efectivo" checked>
+                        <label for="efectivo">
+                            <i class="fas fa-money-bill-wave"></i> Efectivo
+                        </label>
+                        <input type="radio" id="nomina" name="payment" value="nomina">
+                        <label for="nomina">
+                            <i class="fas fa-id-card"></i> Nómina
+                        </label>
+                    </div>
+                    <div id="nominaField" style="display: none; margin-top: 10px;">
+                        <div class="employee-upload" style="margin-bottom: 10px;">
+                            <label for="employeeExcel" class="btn"
+                                style="background-color: #4CAF50; cursor: pointer; display: inline-block; margin-bottom: 10px;">
+                                <i class="fas fa-file-excel"></i> Cargar Excel de Empleados
+                            </label>
+                            <input type="file" id="employeeExcel" style="display: none;" accept=".xlsx,.xls">
+                            <span id="excelFileName" style="margin-left: 10px; font-size: 12px; color: #666;"></span>
+                        </div>
+                        <input type="text" id="employeeNumber" placeholder="Número de nómina" class="nomina-input">
+                    </div>
+                </div>
+
+                <div class="ticket-actions">
+                    <button id="clear-ticket" class="btn">
+                        <i class="fas fa-trash"></i> Limpiar
+                    </button>
+                    <button id="register-ticket" class="btn">
+                        <i class="fas fa-save"></i> Registrar
+                    </button>
+                    <button id="print-ticket" class="btn">
+                        <i class="fas fa-print"></i> Imprimir
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <!-- Sales Record Section -->
+        <section class="sales-record-section">
+            <h2><i class="fas fa-history"></i> Registro de Ventas</h2>
+
+            <div class="sales-record-table-container">
+                <table class="sales-record-table" id="salesRecordTable">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Hora</th>
+                            <th>Método</th>
+                            <th>Nómina</th>
+                            <th>Artículos</th>
+                            <th>Total</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="salesRecordBody">
+                        <!-- Registros de ventas se cargarán dinámicamente aquí -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="sales-record-actions">
+                <button id="export-records" class="btn">
+                    <i class="fas fa-file-export"></i> Exportar Registros
+                </button>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>ASINMEX Food Services &copy; 2025 - Todos los derechos reservados</p>
+        </div>
+    </div>
+
+    <!-- Botón para activar/desactivar el modo de administración -->
+    <button id="adminToggle" class="admin-toggle">
+        <i class="fas fa-lock"></i> Modo Admin
+    </button>
+
+    <!-- Modal para editar productos/categorías -->
+    <div id="editModal" class="edit-modal-overlay" style="display: none;">
+        <div class="edit-modal-content">
+            <h3 class="edit-modal-title" id="editModalTitle">Editar</h3>
+
+            <input type="text" id="editNameInput" class="edit-modal-input" placeholder="Nombre">
+            <input type="text" id="editPriceInput" class="edit-modal-input" placeholder="Precio" style="display: none;">
+
+            <div class="edit-modal-actions">
+                <button class="edit-modal-btn edit-modal-cancel" id="editModalCancel">Cancelar</button>
+                <button class="edit-modal-btn edit-modal-save" id="editModalSave">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script>
+        // Datos del menú inicial (pueden ser sobrescritos por localStorage)
+        let menuData = {
+            productos: [
+                { id: 'p1', name: 'platillo', price: 72.00 },
+                { id: 'p2', name: 'especial', price: 93.00 }
+            ]
+        };
+
+        // Configuración de impuestos
+        const taxRate = 0.00;
+        const currency = 'MXN';
+
+        // Función para formatear precios
+        function formatPrice(price) {
+            return `${price.toFixed(2)}`;
+        }
+
+        // Utilidad para sanear datos
+        function safeString(value) {
+            if (value === undefined || value === null) return '';
+            return String(value).trim();
+        }
+
+        // Objeto para gestionar el ticket
+        const Ticket = {
+            // Array para almacenar los items del ticket
+            items: [],
+
+            // ID para items nuevos
+            nextItemId: 1,
+
+            // Agregar un item al ticket
+            addItem(item) {
+                const newItem = {
+                    ...item,
+                    ticketId: `ticket-${this.nextItemId++}`
+                };
+                this.items.push(newItem);
+
+                // Actualizar la interfaz
+                UI.updateTicketDisplay();
+            },
+
+            // Eliminar un item del ticket
+            removeItem(itemId) {
+                this.items = this.items.filter(item => item.ticketId !== itemId);
+
+                // Actualizar la interfaz
+                UI.updateTicketDisplay();
+            },
+
+            // Limpiar todo el ticket
+            clearAll() {
+                this.items = [];
+                this.nextItemId = 1;
+
+                // Actualizar la interfaz
+                UI.updateTicketDisplay();
+            },
+
+            // Obtener items del ticket
+            getItems() {
+                return this.items;
+            },
+
+            // Calcular subtotal
+            getSubtotal() {
+                return this.items.reduce((total, item) => total + item.price, 0);
+            },
+
+            // Calcular impuestos
+            getTax() {
+                return this.getSubtotal() * taxRate;
+            },
+
+            // Calcular total (con impuestos)
+            getTotal() {
+                return this.getSubtotal() + this.getTax();
+            },
+
+            // Guardar el ticket
+            saveTicket() {
+                // Obtener fecha y hora actuales para el nombre del archivo
+                const now = new Date();
+                const dateStr = now.toISOString().replace(/[:T.]/g, '-').slice(0, 19);
+
+                // Preparar datos del ticket
+                const ticketData = {
+                    date: now.toISOString(),
+                    payment: document.querySelector('input[name="payment"]:checked').value,
+                    items: this.items,
+                    subtotal: this.getSubtotal(),
+                    total: this.getTotal()
+                };
+
+                // Convertir a JSON
+                const ticketJson = JSON.stringify(ticketData, null, 2);
+
+                // Crear un blob y descargarlo
+                const blob = new Blob([ticketJson], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `ticket-${dateStr}.json`;
+                document.body.appendChild(a);
+                a.click();
+
+                // Limpiar
+                setTimeout(() => {
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                }, 0);
+            }
+        };
+
+        // Objeto para gestionar la interfaz de usuario
+        const UI = {
+            // Referencias a elementos DOM
+            elements: {
+                productosItems: document.getElementById('productos-items'),
+                ticketItems: document.getElementById('ticket-items'),
+                subtotal: document.getElementById('subtotal'),
+                total: document.getElementById('total'),
+                clearBtn: document.getElementById('clear-ticket'),
+                registerBtn: document.getElementById('register-ticket'),
+                printBtn: document.getElementById('print-ticket'),
+                currentDay: document.getElementById('currentDay'),
+                currentDate: document.getElementById('currentDate'),
+                currentTime: document.getElementById('currentTime'),
+                productSearch: document.getElementById('productSearch'),
+                newCategoryName: document.getElementById('newCategoryName'),
+                addCategoryBtn: document.getElementById('addCategoryBtn'),
+                newProductName: document.getElementById('newProductName'),
+                newProductPrice: document.getElementById('newProductPrice'),
+                newProductCategory: document.getElementById('newProductCategory'),
+                addProductBtn: document.getElementById('addProductBtn'),
+                // Elementos faltantes:
+                nominaField: document.getElementById('nominaField'),
+                ticketEmployeeInfo: document.getElementById('ticketEmployeeInfo'),
+                nominaRadio: document.getElementById('nomina'),
+                efectivoRadio: document.getElementById('efectivo'),
+                employeeNumber: document.getElementById('employeeNumber'),
+                ticketEmployeeNumber: document.getElementById('ticketEmployeeNumber'),
+                // Nuevos elementos para el manejo de Excel
+                employeeExcel: document.getElementById('employeeExcel'),
+                excelFileName: document.getElementById('excelFileName'),
+                // Elementos del modal
+                excelModal: document.getElementById('excelModal'),
+                initialExcelFile: document.getElementById('initialExcelFile'),
+                excelFileInfo: document.getElementById('excelFileInfo'),
+                excelLoadedName: document.getElementById('excelLoadedName'),
+                excelEmployeeCount: document.getElementById('excelEmployeeCount'),
+                startAppBtn: document.getElementById('startAppBtn'),
+                // Elementos del registro de ventas
+                salesRecordBody: document.getElementById('salesRecordBody'),
+                exportRecordsBtn: document.getElementById('export-records')
+            },
+
+            // Lista para almacenar los empleados del Excel
+            employees: [],
+
+            // Registro de ventas
+            salesRecord: [],
+
+            // Variable para controlar si la aplicación ya ha sido inicializada
+            appInitialized: false,
+
+            // Guardar el menú en localStorage
+            saveMenuData() {
+                try {
+                    localStorage.setItem('menuData', JSON.stringify(menuData));
+                    console.log("Menú guardado en localStorage:", menuData);
+                } catch (error) {
+                    console.error("Error al guardar el menú en localStorage:", error);
+                }
+            },
+
+            // Cargar el menú desde localStorage
+            loadMenuData() {
+                try {
+                    const savedMenu = localStorage.getItem('menuData');
+                    if (savedMenu) {
+                        // Copiar los datos guardados al objeto menuData
+                        const parsedMenu = JSON.parse(savedMenu);
+
+                        // Limpiar el objeto menuData actual
+                        Object.keys(menuData).forEach(key => {
+                            delete menuData[key];
+                        });
+
+                        // Copiar las categorías y productos guardados
+                        Object.keys(parsedMenu).forEach(category => {
+                            menuData[category] = parsedMenu[category];
+                        });
+
+                        console.log("Menú cargado desde localStorage:", menuData);
+                    }
+                } catch (error) {
+                    console.error("Error al cargar el menú desde localStorage:", error);
+                }
+            },
+
+            // Inicializar la interfaz de usuario
+            init() {
+                // Si la aplicación ya fue inicializada, no hacer nada
+                if (this.appInitialized) {
+                    console.log("La aplicación ya ha sido inicializada. No se iniciará de nuevo.");
+                    return;
+                }
+
+                // Verificar si existe el modal y si es necesario mostrarlo
+                if (this.elements.excelModal && localStorage.getItem('appStarted') !== 'true') {
+                    // Configurar el Modal de inicio
+                    this.setupInitialModal();
+                } else {
+                    // Si no existe el modal o ya se inició la app antes, inicializar directamente
+                    // Ocultar el modal por si acaso
+                    if (this.elements.excelModal) {
+                        this.elements.excelModal.style.display = 'none';
+                    }
+                    this.initializeApp();
+                }
+            },
+
+            // Configurar el modal para cargar el Excel al inicio
+            setupInitialModal() {
+                const self = this; // Guardar referencia a this para usar en eventos
+
+                // Verificar si los elementos existen antes de agregar event listeners
+                if (!this.elements.initialExcelFile || !this.elements.startAppBtn) {
+                    console.error("Elementos del modal no encontrados. Iniciando la aplicación directamente.");
+                    this.initializeApp();
+                    return;
+                }
+
+                // Hacer el botón de inicio disponible sin cargar archivo
+                this.elements.startAppBtn.disabled = false;
+
+                // Escuchar cambios en el input de archivo Excel
+                this.elements.initialExcelFile.addEventListener('change', function (e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        try {
+                            // Mostrar info del archivo
+                            self.elements.excelLoadedName.textContent = file.name;
+                            self.elements.excelFileInfo.style.display = 'block';
+
+                            // Procesar el archivo Excel
+                            self.processInitialExcelFile(file);
+
+                            // Cambiar el texto del botón
+                            self.elements.startAppBtn.textContent = "Iniciar la aplicación";
+                        } catch (error) {
+                            console.error("Error al procesar el archivo:", error);
+                            self.showErrorNotification("Error al procesar el archivo Excel. Intente con otro archivo o inicie sin él.");
+                        }
+                    }
+                });
+
+                // Evento para iniciar la aplicación
+                this.elements.startAppBtn.addEventListener('click', function () {
+                    // Guardar en localStorage que la aplicación ya se inició
+                    localStorage.setItem('appStarted', 'true');
+
+                    // Ocultar el modal
+                    self.elements.excelModal.style.display = 'none';
+
+                    // Inicializar la aplicación
+                    self.initializeApp();
+                });
+
+                // Permitir arrastrar y soltar archivos
+                const dropArea = document.getElementById('dropArea');
+
+                if (dropArea) {
+                    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                        dropArea.addEventListener(eventName, function (e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                        }, false);
+                    });
+
+                    dropArea.addEventListener('dragenter', function () {
+                        dropArea.classList.add('highlight');
+                    }, false);
+
+                    dropArea.addEventListener('dragleave', function () {
+                        dropArea.classList.remove('highlight');
+                    }, false);
+
+                    dropArea.addEventListener('drop', function (e) {
+                        dropArea.classList.remove('highlight');
+                        const file = e.dataTransfer.files[0];
+
+                        if (file && (file.name.endsWith('.xlsx') || file.name.endsWith('.xls'))) {
+                            try {
+                                // Actualizar el archivo en el input para mantener la consistencia
+                                const dataTransfer = new DataTransfer();
+                                dataTransfer.items.add(file);
+                                self.elements.initialExcelFile.files = dataTransfer.files;
+
+                                self.elements.excelLoadedName.textContent = file.name;
+                                self.elements.excelFileInfo.style.display = 'block';
+                                self.processInitialExcelFile(file);
+
+                                // Cambiar el texto del botón
+                                self.elements.startAppBtn.textContent = "Iniciar la aplicación";
+                            } catch (error) {
+                                console.error("Error al procesar el archivo arrastrado:", error);
+                                self.showErrorNotification("Error al procesar el archivo Excel. Intente con otro archivo o inicie sin él.");
+                            }
+                        } else {
+                            self.showErrorNotification('Por favor selecciona un archivo Excel válido (.xlsx o .xls)');
+                        }
+                    }, false);
+                } else {
+                    console.warn("Área de drop no encontrada, desactivando funcionalidad de drag & drop");
+                }
+            },
+
+            // Procesar el archivo Excel inicial
+            processInitialExcelFile(file) {
+                const reader = new FileReader();
+
+                reader.onload = (e) => {
+                    try {
+                        const data = new Uint8Array(e.target.result);
+                        let workbook;
+
+                        try {
+                            // Opciones avanzadas para manejar más tipos de Excel
+                            workbook = XLSX.read(data, {
+                                type: 'array',
+                                cellDates: true,
+                                cellText: false,
+                                cellStyles: true,
+                                cellNF: true,
+                                dateNF: 'yyyy-mm-dd',
+                                raw: true,
+                                WTF: false // Opción para mostrar errores de formato
+                            });
+                        } catch (error) {
+                            console.error("Error al leer el archivo Excel:", error);
+                            this.showErrorNotification("Error al leer el archivo Excel. El formato podría no ser compatible.");
+                            return;
+                        }
+
+                        // Comprobar si hay hojas en el libro
+                        if (!workbook.SheetNames || workbook.SheetNames.length === 0) {
+                            this.showErrorNotification("El archivo Excel no contiene hojas de cálculo.");
+                            return;
+                        }
+
+                        // Suponemos que los datos de los empleados están en la primera hoja
+                        const firstSheetName = workbook.SheetNames[0];
+                        const worksheet = workbook.Sheets[firstSheetName];
+
+                        // Convertir a JSON con opciones para manejar diferentes tipos de celdas
+                        let employeesData;
+                        try {
+                            employeesData = XLSX.utils.sheet_to_json(worksheet, {
+                                header: 'A', // Usar la primera fila como encabezados
+                                range: 0,    // Empezar desde la primera fila
+                                raw: false,  // Convertir valores según el formato de la celda
+                                defval: '',  // Valor por defecto para celdas vacías
+                                blankrows: false // Ignorar filas en blanco
+                            });
+
+                            // Verificar si la primera fila podría ser encabezados
+                            const firstRow = employeesData[0] || {};
+                            const hasHeaderRow = Object.values(firstRow).some(val =>
+                                typeof val === 'string' &&
+                                (val.toLowerCase().includes('nom') ||
+                                    val.toLowerCase().includes('id') ||
+                                    val.toLowerCase().includes('nombre'))
+                            );
+
+                            // Si la primera fila parece contener encabezados, volver a convertir con header: 1
+                            if (hasHeaderRow) {
+                                employeesData = XLSX.utils.sheet_to_json(worksheet, {
+                                    raw: false,
+                                    defval: '',
+                                    blankrows: false
+                                });
+                            }
+                        } catch (error) {
+                            console.error("Error al convertir hoja a JSON:", error);
+                            this.showErrorNotification("Error al procesar los datos del Excel.");
+                            return;
+                        }
+
+                        // Verificar si hay datos
+                        if (!employeesData || employeesData.length === 0) {
+                            this.showErrorNotification("No se encontraron datos de empleados en el archivo Excel.");
+                            return;
+                        }
+
+                        // Sanear los datos para evitar problemas con valores undefined o null
+                        employeesData = employeesData.map(emp => {
+                            const cleanedEmp = {};
+                            Object.keys(emp).forEach(key => {
+                                // Convertir todos los valores a string seguro
+                                cleanedEmp[key] = safeString(emp[key]);
+                            });
+                            return cleanedEmp;
+                        });
+
+                        // Filtrar filas vacías
+                        employeesData = employeesData.filter(emp =>
+                            Object.values(emp).some(val => val !== '')
+                        );
+
+                        console.log("Datos procesados:", employeesData.slice(0, 3)); // Mostrar primeros 3 registros
+
+                        // Actualizar la lista de empleados
+                        this.employees = employeesData;
+
+                        // Actualizar contador de empleados
+                        if (this.elements.excelEmployeeCount) {
+                            this.elements.excelEmployeeCount.textContent = `${employeesData.length} empleados encontrados`;
+                        }
+
+                        // Mostrar información adicional sobre las columnas encontradas
+                        if (employeesData.length > 0) {
+                            const firstEmployee = employeesData[0];
+                            const columns = Object.keys(firstEmployee);
+                            console.log("Columnas encontradas:", columns);
+                        }
+
+                        // 1) Marcar que ya iniciamos (para futuro reload)
+                        localStorage.setItem('appStarted', 'true');
+                        // 2) Ocultar el modal de carga
+                        this.elements.excelModal.style.display = 'none';
+                        // 3) Inicializar la aplicación con esos datos ya en this.employees
+                        this.initializeApp();
+
+                    } catch (error) {
+                        console.error("Error general al procesar el archivo:", error);
+                        this.showErrorNotification("Error inesperado al procesar el archivo Excel.");
+                    }
+                };
+
+                reader.onerror = (error) => {
+                    console.error("Error al leer el archivo:", error);
+                    this.showErrorNotification("Error al leer el archivo. Verifique que el archivo no esté dañado.");
+                };
+
+                try {
+                    reader.readAsArrayBuffer(file);
+                } catch (error) {
+                    console.error("Error al iniciar la lectura del archivo:", error);
+                    this.showErrorNotification("No se pudo leer el archivo seleccionado.");
+                }
+            },
+
+            // Inicializar la aplicación después de cargar el Excel
+            initializeApp() {
+                // Marcar la aplicación como inicializada
+                this.appInitialized = true;
+
+                // Cargar el menú desde localStorage
+                this.loadMenuData();
+
+                // Inicializar la interfaz
+                this.updateSystemDateTime();
+                setInterval(() => this.updateSystemDateTime(), 1000);
+                this.renderMenuItems();
+                this.setupEventListeners();
+                this.updateTicketDisplay();
+                this.updateCategoryDropdown();
+
+                // Configurar inicialmente el campo de nómina como oculto
+                if (this.elements.nominaField) {
+                    this.elements.nominaField.style.display = 'none';
+                }
+                if (this.elements.ticketEmployeeInfo) {
+                    this.elements.ticketEmployeeInfo.style.display = 'none';
+                }
+
+                // Cargar el registro de ventas desde localStorage si existe
+                this.loadSalesRecord();
+
+                // Actualizar la tabla de registros de ventas
+                this.updateSalesRecordTable();
+
+                // Enfocar el campo de búsqueda
+                setTimeout(() => {
+                    if (this.elements.productSearch) {
+                        this.elements.productSearch.focus();
+                    }
+                }, 100);
+
+                console.log("Aplicación inicializada correctamente");
+            },
+
+            // Cargar registro de ventas desde localStorage
+            loadSalesRecord() {
+                const savedRecord = localStorage.getItem('salesRecord');
+                if (savedRecord) {
+                    try {
+                        this.salesRecord = JSON.parse(savedRecord);
+                        console.log(`Registro de ventas cargado: ${this.salesRecord.length} ventas`);
+                    } catch (error) {
+                        console.error("Error al cargar el registro de ventas:", error);
+                        this.salesRecord = [];
+                    }
+                }
+            },
+
+            // Guardar registro de ventas en localStorage
+            saveSalesRecord() {
+                try {
+                    localStorage.setItem('salesRecord', JSON.stringify(this.salesRecord));
+                } catch (error) {
+                    console.error("Error al guardar el registro de ventas:", error);
+                }
+            },
+
+            // Agregar una venta al registro
+            addSaleToRecord(saleData) {
+                this.salesRecord.push(saleData);
+                this.saveSalesRecord();
+                this.updateSalesRecordTable();
+                console.log("Venta registrada:", saleData);
+            },
+
+            // Actualizar la tabla de registro de ventas
+            updateSalesRecordTable() {
+                if (!this.elements.salesRecordBody) return;
+
+                // Limpiar la tabla
+                this.elements.salesRecordBody.innerHTML = '';
+
+                // Si no hay registros, mostrar mensaje
+                if (this.salesRecord.length === 0) {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `<td colspan="7" style="text-align: center; padding: 20px;">No hay ventas registradas</td>`;
+                    this.elements.salesRecordBody.appendChild(row);
+                    return;
+                }
+
+                // Ordenar registros por fecha (más recientes primero)
+                const sortedRecords = [...this.salesRecord].sort((a, b) =>
+                    new Date(b.date) - new Date(a.date)
+                );
+
+                // Agregar cada registro a la tabla
+                sortedRecords.forEach((sale, index) => {
+                    const row = document.createElement('tr');
+
+                    // Obtener número de artículos
+                    const itemCount = sale.items ? sale.items.length : 0;
+
+                    // Guardamos el índice original del registro para poder borrarlo después
+                    const originalIndex = this.salesRecord.findIndex(s => s.date === sale.date && s.formattedTime === sale.formattedTime);
+
+                    row.innerHTML = `
+            <td>${sale.formattedDate}</td>
+            <td>${sale.formattedTime}</td>
+            <td>${sale.paymentMethod === 'nomina' ? 'Nómina' : 'Efectivo'}</td>
+            <td>${sale.employeeNumber || '-'}</td>
+            <td>${itemCount}</td>
+            <td>${formatPrice(sale.total)}</td>
+            <td class="actions-cell">
+              <button class="delete-record-btn" data-index="${originalIndex}" title="Eliminar venta">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </td>
+          `;
+
+                    this.elements.salesRecordBody.appendChild(row);
+                });
+
+                // Añadir listeners a los botones de eliminar
+                const deleteButtons = document.querySelectorAll('.delete-record-btn');
+                deleteButtons.forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const recordIndex = parseInt(btn.dataset.index);
+                        this.deleteRecord(recordIndex);
+                    });
+                });
+            },
+
+            // Eliminar un registro de venta
+            deleteRecord(index) {
+                // Confirmar eliminación
+                if (confirm('¿Está seguro de eliminar este registro de venta?')) {
+                    // Eliminar el registro
+                    this.salesRecord.splice(index, 1);
+
+                    // Guardar en localStorage
+                    this.saveSalesRecord();
+
+                    // Actualizar la tabla
+                    this.updateSalesRecordTable();
+
+                    // Mostrar notificación
+                    this.showAddNotification('Registro eliminado correctamente');
+                }
+            },
+
+            // Exportar registros de ventas
+            exportSalesRecords() {
+                if (this.salesRecord.length === 0) {
+                    this.showErrorNotification('No hay ventas para exportar');
+                    return;
+                }
+
+                try {
+                    // Crear una hoja de cálculo con los registros
+                    const ws = XLSX.utils.json_to_sheet(this.salesRecord.map(sale => {
+                        // Crear un objeto plano con solo los datos que queremos exportar
+                        const itemsCount = sale.items ? sale.items.length : 0;
+                        const itemsSummary = sale.items ? sale.items.map(item => `${item.name} ($${formatPrice(item.price)})`).join(', ') : '';
+
+                        return {
+                            Fecha: sale.formattedDate,
+                            Hora: sale.formattedTime,
+                            "Método de Pago": sale.paymentMethod === 'nomina' ? 'Nómina' : 'Efectivo',
+                            "Número de Nómina": sale.employeeNumber || '-',
+                            "Nombre de Empleado": sale.employeeName || '-',
+                            "Cantidad de Artículos": itemsCount,
+                            "Artículos": itemsSummary,
+                            Subtotal: sale.subtotal,
+                            Total: sale.total
+                        };
+                    }));
+
+                    // Crear un libro de trabajo y agregar la hoja
+                    const wb = XLSX.utils.book_new();
+                    XLSX.utils.book_append_sheet(wb, ws, 'Registro de Ventas');
+
+                    // Generar el archivo Excel
+                    const now = new Date();
+                    const dateStr = now.toISOString().replace(/[:T.]/g, '-').slice(0, 19);
+                    XLSX.writeFile(wb, `registro-ventas-${dateStr}.xlsx`);
+
+                    this.showAddNotification('Registro de ventas exportado correctamente');
+                } catch (error) {
+                    console.error('Error al exportar ventas:', error);
+                    this.showErrorNotification('Error al exportar el registro de ventas');
+                }
+            },
+
+            // Alternar la visibilidad del campo de nómina
+            toggleNominaField() {
+                if (!this.elements.nominaRadio || !this.elements.nominaField) return;
+
+                if (this.elements.nominaRadio.checked) {
+                    this.elements.nominaField.style.display = 'block';
+                    this.elements.ticketEmployeeInfo.style.display = 'block';
+                } else {
+                    this.elements.nominaField.style.display = 'none';
+                    this.elements.ticketEmployeeInfo.style.display = 'none';
+                    this.elements.employeeNumber.value = '';
+                    this.elements.ticketEmployeeNumber.textContent = '________';
+                }
+            },
+
+            // Procesar archivo Excel
+            processExcelFile(file) {
+                const reader = new FileReader();
+
+                reader.onload = (e) => {
+                    try {
+                        const data = new Uint8Array(e.target.result);
+                        let workbook;
+
+                        try {
+                            // Opciones avanzadas para manejar más tipos de Excel
+                            workbook = XLSX.read(data, {
+                                type: 'array',
+                                cellDates: true,
+                                cellText: false,
+                                cellStyles: true,
+                                cellNF: true,
+                                dateNF: 'yyyy-mm-dd',
+                                raw: true,
+                                WTF: false // Opción para mostrar errores de formato
+                            });
+                        } catch (error) {
+                            console.error("Error al leer el archivo Excel:", error);
+                            this.showErrorNotification("Error al leer el archivo Excel. El formato podría no ser compatible.");
+                            return;
+                        }
+
+                        // Comprobar si hay hojas en el libro
+                        if (!workbook.SheetNames || workbook.SheetNames.length === 0) {
+                            this.showErrorNotification("El archivo Excel no contiene hojas de cálculo.");
+                            return;
+                        }
+
+                        // Suponemos que los datos de los empleados están en la primera hoja
+                        const firstSheetName = workbook.SheetNames[0];
+                        const worksheet = workbook.Sheets[firstSheetName];
+
+                        // Convertir a JSON con opciones para manejar diferentes tipos de celdas
+                        let employeesData;
+                        try {
+                            employeesData = XLSX.utils.sheet_to_json(worksheet, {
+                                header: 'A', // Usar la primera fila como encabezados
+                                range: 0,    // Empezar desde la primera fila
+                                raw: false,  // Convertir valores según el formato de la celda
+                                defval: '',  // Valor por defecto para celdas vacías
+                                blankrows: false // Ignorar filas en blanco
+                            });
+
+                            // Verificar si la primera fila podría ser encabezados
+                            const firstRow = employeesData[0] || {};
+                            const hasHeaderRow = Object.values(firstRow).some(val =>
+                                typeof val === 'string' &&
+                                (val.toLowerCase().includes('nom') ||
+                                    val.toLowerCase().includes('id') ||
+                                    val.toLowerCase().includes('nombre'))
+                            );
+
+                            // Si la primera fila parece contener encabezados, volver a convertir con header: 1
+                            if (hasHeaderRow) {
+                                employeesData = XLSX.utils.sheet_to_json(worksheet, {
+                                    raw: false,
+                                    defval: '',
+                                    blankrows: false
+                                });
+                            }
+                        } catch (error) {
+                            console.error("Error al convertir hoja a JSON:", error);
+                            this.showErrorNotification("Error al procesar los datos del Excel.");
+                            return;
+                        }
+
+                        // Verificar si hay datos
+                        if (!employeesData || employeesData.length === 0) {
+                            this.showErrorNotification("No se encontraron datos de empleados en el archivo Excel.");
+                            return;
+                        }
+
+                        // Sanear los datos para evitar problemas con valores undefined o null
+                        employeesData = employeesData.map(emp => {
+                            const cleanedEmp = {};
+                            Object.keys(emp).forEach(key => {
+                                // Convertir todos los valores a string seguro
+                                cleanedEmp[key] = safeString(emp[key]);
+                            });
+                            return cleanedEmp;
+                        });
+
+                        // Filtrar filas vacías
+                        employeesData = employeesData.filter(emp =>
+                            Object.values(emp).some(val => val !== '')
+                        );
+
+                        console.log("Datos procesados:", employeesData.slice(0, 3)); // Mostrar primeros 3 registros
+
+                        // Actualizar la lista de empleados
+                        this.employees = employeesData;
+
+                        // Mostrar información adicional sobre las columnas encontradas
+                        if (employeesData.length > 0) {
+                            const firstEmployee = employeesData[0];
+                            const columns = Object.keys(firstEmployee);
+                            console.log("Columnas encontradas:", columns);
+                        }
+
+                        // Mostrar notificación
+                        this.showAddNotification(`${employeesData.length} empleados cargados`);
+                    } catch (error) {
+                        console.error("Error general al procesar el archivo:", error);
+                        this.showErrorNotification("Error inesperado al procesar el archivo Excel.");
+                    }
+                };
+
+                reader.onerror = (error) => {
+                    console.error("Error al leer el archivo:", error);
+                    this.showErrorNotification("Error al leer el archivo. Verifique que el archivo no esté dañado.");
+                };
+
+                try {
+                    reader.readAsArrayBuffer(file);
+                } catch (error) {
+                    console.error("Error al iniciar la lectura del archivo:", error);
+                    this.showErrorNotification("No se pudo leer el archivo seleccionado.");
+                }
+            },
+
+            // Función auxiliar para encontrar columna por palabra clave
+            findColumnByKeyword(columns, keywords) {
+                // Primero intentar con coincidencia exacta
+                for (const keyword of keywords) {
+                    const exactMatch = columns.find(col =>
+                        col.toLowerCase() === keyword.toLowerCase()
+                    );
+                    if (exactMatch) return exactMatch;
+                }
+
+                // Luego intentar con coincidencia parcial
+                for (const keyword of keywords) {
+                    const partialMatch = columns.find(col =>
+                        col.toLowerCase().includes(keyword.toLowerCase())
+                    );
+                    if (partialMatch) return partialMatch;
+                }
+
+                // Finalmente, intentar con coincidencia flexible (columnas que contengan parte de la palabra)
+                for (const keyword of keywords) {
+                    for (const col of columns) {
+                        if (keyword.length > 3 && col.toLowerCase().includes(keyword.toLowerCase().substring(0, 3))) {
+                            return col;
+                        }
+                    }
+                }
+
+                return null;
+            },
+
+            // Actualizar fecha y hora del sistema
+            updateSystemDateTime() {
+                const now = new Date();
+                const locale = 'es-MX';
+
+                const dayName = now.toLocaleDateString(locale, { weekday: 'long' })
+                    .replace(/^\w/, c => c.toUpperCase());
+
+                const datePart = now.toLocaleDateString(locale);
+
+                const timePart = now.toLocaleTimeString(locale, {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: false
+                });
+
+                if (this.elements.currentDay) this.elements.currentDay.textContent = dayName;
+                if (this.elements.currentDate) this.elements.currentDate.textContent = datePart;
+                if (this.elements.currentTime) this.elements.currentTime.textContent = timePart;
+
+                // Actualizar fecha y hora en el ticket
+                const ticketDateEl = document.getElementById('ticketDate');
+                const ticketTimeEl = document.getElementById('ticketTime');
+
+                if (ticketDateEl) ticketDateEl.textContent = datePart;
+                if (ticketTimeEl) ticketTimeEl.textContent = timePart;
+            },
+
+            // Renderizar todos los items del menú y las tabs de categorías
+            renderMenuItems() {
+                // Actualizar primero los tabs de categorías
+                this.renderCategoryTabs();
+
+                // Renderizar los productos de la categoría actual
+                // Por defecto, mostrar la categoría "productos" si existe
+                const activeCategory = document.querySelector('.tab-btn.active')?.dataset?.tab || 'productos';
+
+                if (menuData[activeCategory] && this.elements.productosItems) {
+                    this.elements.productosItems.innerHTML = menuData[activeCategory].map(item => this.createItemHtml(item)).join('');
+                }
+            },
+
+            // Nueva función para renderizar los tabs de categorías
+            renderCategoryTabs() {
+                const tabsContainer = document.querySelector('.menu-tabs');
+                if (!tabsContainer) return;
+
+                // Guardar la categoría activa actual
+                const activeCategory = document.querySelector('.tab-btn.active')?.dataset?.tab || 'productos';
+
+                // Crear los nuevos tabs
+                const tabsHtml = Object.keys(menuData).map(category => `
+          <button class="tab-btn ${category === activeCategory ? 'active' : ''}" data-tab="${category}">
+            <i class="fas fa-${category === 'productos' ? 'utensils' : 'box'}"></i> ${category}
+          </button>
+        `).join('');
+
+                // Actualizar el contenedor
+                tabsContainer.innerHTML = tabsHtml;
+
+                // Añadir eventos a los nuevos tabs
+                const tabs = tabsContainer.querySelectorAll('.tab-btn');
+                tabs.forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        // Remover active de todos los tabs
+                        tabs.forEach(t => t.classList.remove('active'));
+
+                        // Añadir active al tab actual
+                        tab.classList.add('active');
+
+                        // Actualizar la categoría de productos mostrada
+                        const category = tab.dataset.tab;
+
+                        // Actualizar el título de la sección de productos
+                        const categoryTitle = document.querySelector('#productos h3');
+                        if (categoryTitle) {
+                            categoryTitle.innerHTML = `<i class="fas fa-list"></i> ${category}`;
+                        }
+
+                        // Renderizar los productos de esta categoría
+                        if (menuData[category] && this.elements.productosItems) {
+                            this.elements.productosItems.innerHTML = menuData[category].map(item => this.createItemHtml(item)).join('');
+                        }
+                    });
+                });
+            },
+
+            // Crear HTML para un ítem del menú
+            createItemHtml(item) {
+                return `
+          <div class="menu-item" data-id="${item.id}">
+            <h4>${item.name}</h4>
+            <p class="price">${formatPrice(item.price)}</p>
+          </div>
+        `;
+            },
+
+            // Actualizar el dropdown de categorías
+            updateCategoryDropdown() {
+                if (!this.elements.newProductCategory) return;
+
+                const categories = Object.keys(menuData);
+                this.elements.newProductCategory.innerHTML = '';
+
+                // Agregar cada categoría como opción
+                categories.forEach(category => {
+                    const option = document.createElement('option');
+                    option.value = category;
+                    option.textContent = category;
+                    this.elements.newProductCategory.appendChild(option);
+                });
+            },
+
+            // Agregar una nueva categoría
+            addCategory(categoryName) {
+                // Verificar si la categoría ya existe
+                if (menuData[categoryName]) {
+                    this.showErrorNotification('La categoría ya existe');
+                    return;
+                }
+
+                // Crear nueva categoría
+                menuData[categoryName] = [];
+
+                // Guardar en localStorage
+                this.saveMenuData();
+
+                // Actualizar dropdown y la visualización de categorías
+                this.updateCategoryDropdown();
+                this.renderMenuItems();
+
+                // Mostrar notificación
+                this.showAddNotification(`Categoría ${categoryName} agregada`);
+            },
+
+            // Agregar un nuevo producto
+            addProduct(name, price, category) {
+                // Verificar si la categoría existe
+                if (!menuData[category]) {
+                    this.showErrorNotification('La categoría no existe');
+                    return;
+                }
+
+                // Crear ID único para el nuevo producto (usar timestamp)
+                const timestamp = new Date().getTime();
+                const shortId = timestamp.toString().slice(-5);
+                const id = `P${shortId}`;
+
+                // Crear nuevo producto
+                const newProduct = {
+                    id,
+                    name,
+                    price: parseFloat(price)
+                };
+
+                // Agregarlo a la categoría
+                menuData[category].push(newProduct);
+
+                // Guardar en localStorage
+                this.saveMenuData();
+
+                // Actualizar la visualización
+                this.renderMenuItems();
+
+                // Mostrar notificación
+                this.showAddNotification(`Producto ${name} agregado`);
+            },
+
+            // Buscar producto por código o nombre
+            searchProduct(query) {
+                query = query.trim().toLowerCase();
+
+                // Buscar en todas las categorías
+                for (const category in menuData) {
+                    const foundItem = menuData[category].find(item =>
+                        item.id.toLowerCase() === query ||
+                        item.name.toLowerCase().includes(query)
+                    );
+
+                    if (foundItem) {
+                        return foundItem;
+                    }
+                }
+
+                return null;
+            },
+
+            // Verificar si la venta es válida antes de registrarla/imprimirla
+            validateSale() {
+                // Verificar si hay items en el ticket
+                if (Ticket.getItems().length === 0) {
+                    this.showErrorNotification('El ticket está vacío. Agregue productos.');
+                    return false;
+                }
+
+                // Verificar si se requiere número de nómina
+                if (this.elements.nominaRadio && this.elements.nominaRadio.checked) {
+                    const employeeNumber = this.elements.employeeNumber.value.trim();
+                    if (!employeeNumber) {
+                        this.showErrorNotification('Por favor ingrese un número de nómina');
+                        if (this.elements.employeeNumber) {
+                            this.elements.employeeNumber.focus();
+                        }
+                        return false;
+                    }
+                }
+
+                return true;
+            },
+
+            // Configurar listeners de eventos
+            setupEventListeners() {
+                // Evento para items del menú de productos
+                if (this.elements.productosItems) {
+                    this.elements.productosItems.addEventListener('click', (e) => {
+                        const menuItem = e.target.closest('.menu-item');
+                        if (menuItem) {
+                            const id = menuItem.dataset.id;
+                            const item = this.searchProduct(id);
+                            if (item) {
+                                Ticket.addItem(item);
+                                this.showAddNotification(item.name);
+                            }
+                        }
+                    });
+                }
+
+                // Evento para eliminar items del ticket
+                if (this.elements.ticketItems) {
+                    this.elements.ticketItems.addEventListener('click', (e) => {
+                        if (e.target.classList.contains('remove-btn')) {
+                            const itemId = e.target.dataset.id;
+                            Ticket.removeItem(itemId);
+                        }
+                    });
+                }
+
+                // Evento para limpiar el ticket
+                if (this.elements.clearBtn) {
+                    this.elements.clearBtn.addEventListener('click', () => {
+                        Ticket.clearAll();
+                    });
+                }
+
+                // Evento para registrar la venta sin imprimir
+                if (this.elements.registerBtn) {
+                    this.elements.registerBtn.addEventListener('click', () => {
+                        // Verificar si la venta es válida
+                        if (!this.validateSale()) return;
+
+                        // Registrar la venta
+                        this.registerSale();
+
+                        // Limpiar el ticket después de registrar
+                        Ticket.clearAll();
+
+                        // Mostrar notificación
+                        this.showAddNotification('Venta registrada correctamente');
+                    });
+                }
+
+                // Evento para imprimir el ticket
+                if (this.elements.printBtn) {
+                    this.elements.printBtn.addEventListener('click', () => {
+                        // Verificar si la venta es válida
+                        if (!this.validateSale()) return;
+
+                        // Registrar la venta antes de imprimir
+                        this.registerSale();
+
+                        // Imprimir el ticket
+                        window.print();
+                    });
+                }
+
+                // Evento para cambiar método de pago
+                if (this.elements.nominaRadio && this.elements.efectivoRadio) {
+                    this.elements.nominaRadio.addEventListener('change', this.toggleNominaField.bind(this));
+                    this.elements.efectivoRadio.addEventListener('change', this.toggleNominaField.bind(this));
+                }
+
+                // Cargar archivo Excel
+                if (this.elements.employeeExcel && this.elements.excelFileName) {
+                    this.elements.employeeExcel.addEventListener('change', (e) => {
+                        const file = e.target.files[0];
+                        if (file) {
+                            // Mostrar nombre del archivo
+                            this.elements.excelFileName.textContent = file.name;
+
+                            // Procesar el archivo
+                            this.processExcelFile(file);
+                        }
+                    });
+                }
+
+                // Actualizar número de nómina en el ticket cuando cambia manualmente
+                if (this.elements.employeeNumber && this.elements.ticketEmployeeNumber) {
+                    this.elements.employeeNumber.addEventListener('input', (e) => {
+                        this.elements.ticketEmployeeNumber.textContent = e.target.value || '________';
+                    });
+                }
+
+                // Evento para la búsqueda de productos
+                if (this.elements.productSearch) {
+                    this.elements.productSearch.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                            const query = this.elements.productSearch.value;
+
+                            // Si no hay texto, no hacer nada
+                            if (!query.trim()) return;
+
+                            const foundItem = this.searchProduct(query);
+
+                            if (foundItem) {
+                                Ticket.addItem(foundItem);
+                                this.showAddNotification(foundItem.name);
+                                this.elements.productSearch.value = '';
+                            } else {
+                                // Si no encuentra, mostrar notificación de error
+                                this.showErrorNotification('Producto no encontrado');
+                            }
+                        }
+                    });
+                }
+
+                // Evento para agregar categoría
+                if (this.elements.addCategoryBtn && this.elements.newCategoryName) {
+                    this.elements.addCategoryBtn.addEventListener('click', () => {
+                        const categoryName = this.elements.newCategoryName.value.trim();
+                        if (categoryName) {
+                            this.addCategory(categoryName);
+                            this.elements.newCategoryName.value = '';
+                        } else {
+                            this.showErrorNotification('Ingrese un nombre para la categoría');
+                        }
+                    });
+                }
+
+                // Evento para agregar producto
+                if (this.elements.addProductBtn && this.elements.newProductName && this.elements.newProductPrice && this.elements.newProductCategory) {
+                    this.elements.addProductBtn.addEventListener('click', () => {
+                        const name = this.elements.newProductName.value.trim();
+                        const price = this.elements.newProductPrice.value;
+                        const category = this.elements.newProductCategory.value;
+
+                        if (!name) {
+                            this.showErrorNotification('Ingrese un nombre para el producto');
+                            return;
+                        }
+
+                        if (!price || isNaN(parseFloat(price)) || parseFloat(price) <= 0) {
+                            this.showErrorNotification('Ingrese un precio válido');
+                            return;
+                        }
+
+                        this.addProduct(name, price, category);
+
+                        // Limpiar campos
+                        this.elements.newProductName.value = '';
+                        this.elements.newProductPrice.value = '';
+                    });
+                }
+
+                // Evento para exportar registros
+                if (this.elements.exportRecordsBtn) {
+                    this.elements.exportRecordsBtn.addEventListener('click', () => {
+                        this.exportSalesRecords();
+                    });
+                }
+            },
+
+            // Mostrar notificación de producto añadido
+            showAddNotification(itemName) {
+                // Crear notificación
+                const notification = document.createElement('div');
+                notification.className = 'add-notification';
+                notification.innerHTML = `<i class="fas fa-check-circle"></i> ${itemName}`;
+
+                // Añadir al DOM
+                document.body.appendChild(notification);
+
+                // Mostrar con animación
+                setTimeout(() => {
+                    notification.style.opacity = '1';
+                    notification.style.transform = 'translateY(0)';
+                }, 10);
+
+                // Remover después de 2 segundos
+                setTimeout(() => {
+                    notification.style.opacity = '0';
+                    notification.style.transform = 'translateY(20px)';
+
+                    // Eliminar del DOM después de la transición
+                    setTimeout(() => {
+                        document.body.removeChild(notification);
+                    }, 300);
+                }, 2000);
+            },
+
+            // Mostrar notificación de error
+            showErrorNotification(message) {
+                // Crear notificación
+                const notification = document.createElement('div');
+                notification.className = 'add-notification';
+                notification.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+                notification.style.background = 'linear-gradient(135deg, #F44336, #D32F2F)';
+
+                // Añadir al DOM
+                document.body.appendChild(notification);
+
+                // Mostrar con animación
+                setTimeout(() => {
+                    notification.style.opacity = '1';
+                    notification.style.transform = 'translateY(0)';
+                }, 10);
+
+                // Remover después de 2 segundos
+                setTimeout(() => {
+                    notification.style.opacity = '0';
+                    notification.style.transform = 'translateY(20px)';
+
+                    // Eliminar del DOM después de la transición
+                    setTimeout(() => {
+                        document.body.removeChild(notification);
+                    }, 300);
+                }, 2000);
+            },
+
+            // Actualizar la visualización del ticket
+            updateTicketDisplay() {
+                if (!this.elements.ticketItems) return;
+
+                const items = Ticket.getItems();
+
+                // Actualizar items del ticket
+                if (items.length === 0) {
+                    this.elements.ticketItems.innerHTML = `
+      <div class="empty-ticket">
+        <i class="fas fa-receipt"></i>
+        <p>No hay productos en el ticket</p>
+        <p>Haga clic en los items del menú para agregarlos</p>
+      </div>
+    `;
+                } else {
+                    this.elements.ticketItems.innerHTML = items.map((item, index) => `
+      <div class="ticket-item">
+        <span class="item-number">${index + 1}.</span>
+        <span class="item-name">${item.name}</span>
+        <span class="item-price">${formatPrice(item.price)}</span>
+        <span class="remove-btn" data-id="${item.ticketId}" title="Eliminar">✕</span>
+      </div>
+    `).join('');
+                }
+
+                // Actualizar totales
+                const subtotal = Ticket.getSubtotal();
+                const total = Ticket.getTotal();
+
+                if (this.elements.subtotal) this.elements.subtotal.textContent = formatPrice(subtotal);
+                if (this.elements.total) this.elements.total.textContent = formatPrice(total);
+            },
+
+            // Actualizar la tabla de registro de ventas
+            updateSalesRecordTable() {
+                if (!this.elements.salesRecordBody) return;
+
+                // Limpiar la tabla
+                this.elements.salesRecordBody.innerHTML = '';
+
+                // Si no hay registros, mostrar mensaje
+                if (this.salesRecord.length === 0) {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `<td colspan="7" style="text-align: center; padding: 20px;">No hay ventas registradas</td>`;
+                    this.elements.salesRecordBody.appendChild(row);
+                    return;
+                }
+
+                // Ordenar registros por fecha (más recientes primero)
+                const sortedRecords = [...this.salesRecord].sort((a, b) =>
+                    new Date(b.date) - new Date(a.date)
+                );
+
+                // Agregar cada registro a la tabla
+                sortedRecords.forEach((sale, index) => {
+                    const row = document.createElement('tr');
+
+                    // Obtener número de artículos
+                    const itemCount = sale.items ? sale.items.length : 0;
+
+                    // Guardamos el índice original del registro para poder borrarlo después
+                    const originalIndex = this.salesRecord.findIndex(s => s.date === sale.date && s.formattedTime === sale.formattedTime);
+
+                    row.innerHTML = `
+      <td>${sale.formattedDate}</td>
+      <td>${sale.formattedTime}</td>
+      <td>${sale.paymentMethod === 'nomina' ? 'Nómina' : 'Efectivo'}</td>
+      <td>${sale.employeeNumber || '-'}</td>
+      <td>${itemCount}</td>
+      <td>${formatPrice(sale.total)}</td>
+      <td class="actions-cell">
+        <button class="delete-record-btn" data-index="${originalIndex}" title="Eliminar venta">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </td>
+    `;
+
+                    this.elements.salesRecordBody.appendChild(row);
+                });
+
+                // Añadir listeners a los botones de eliminar
+                const deleteButtons = document.querySelectorAll('.delete-record-btn');
+                deleteButtons.forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const recordIndex = parseInt(btn.dataset.index);
+                        this.deleteRecord(recordIndex);
+                    });
+                });
+            },
+
+            // Eliminar un registro de venta
+            deleteRecord(index) {
+                // Confirmar eliminación
+                if (confirm('¿Está seguro de eliminar este registro de venta?')) {
+                    // Eliminar el registro
+                    this.salesRecord.splice(index, 1);
+
+                    // Guardar en localStorage
+                    this.saveSalesRecord();
+
+                    // Actualizar la tabla
+                    this.updateSalesRecordTable();
+
+                    // Mostrar notificación
+                    this.showAddNotification('Registro eliminado correctamente');
+                }
+            },
+
+            // Registrar la venta en el historial
+            registerSale() {
+                try {
+                    const items = Ticket.getItems();
+                    if (items.length === 0) return;
+
+                    // Obtener fecha y hora actuales
+                    const now = new Date();
+
+                    // Preparar datos de la venta
+                    const saleData = {
+                        date: now.toISOString(),
+                        formattedDate: now.toLocaleDateString('es-MX'),
+                        formattedTime: now.toLocaleTimeString('es-MX'),
+                        paymentMethod: document.querySelector('input[name="payment"]:checked').value,
+                        employeeNumber: this.elements.nominaRadio && this.elements.nominaRadio.checked ?
+                            (this.elements.employeeNumber ? this.elements.employeeNumber.value.trim() : '') : '',
+                        employeeName: this.getEmployeeName(),
+                        items: JSON.parse(JSON.stringify(items)), // Copia profunda
+                        subtotal: Ticket.getSubtotal(),
+                        total: Ticket.getTotal()
+                    };
+
+                    // Agregar al registro
+                    this.addSaleToRecord(saleData);
+
+                    return saleData;
+                } catch (error) {
+                    console.error("Error al registrar la venta:", error);
+                    this.showErrorNotification("Error al registrar la venta");
+                    return null;
+                }
+            },
+
+            // Obtener el nombre del empleado a partir del número de nómina
+            getEmployeeName() {
+                if (!this.elements.nominaRadio || !this.elements.nominaRadio.checked || !this.elements.employeeNumber) {
+                    return '';
+                }
+
+                const employeeNumber = this.elements.employeeNumber.value.trim();
+                if (!employeeNumber || !this.employees || this.employees.length === 0) {
+                    return '';
+                }
+
+                // Buscar el empleado en la lista
+                // Primero determinar qué columnas usar
+                if (this.employees.length > 0) {
+                    const firstEmployee = this.employees[0];
+                    const columns = Object.keys(firstEmployee);
+
+                    const nominaColumn = this.findColumnByKeyword(columns, ['nomina', 'nómina', 'num', 'número', 'numero', 'id', 'empleado', 'clave']);
+                    const nameColumn = this.findColumnByKeyword(columns, ['nombre', 'name', 'empleado', 'trabajador', 'persona']);
+
+                    if (nominaColumn && nameColumn) {
+                        // Buscar por número de nómina
+                        const employee = this.employees.find(emp =>
+                            safeString(emp[nominaColumn]) === employeeNumber
+                        );
+
+                        if (employee) {
+                            return safeString(employee[nameColumn]);
+                        }
+                    }
+                }
+
+                return '';
+            }
+        };
+
+        // Función para inicializar el panel de administración
+        function initAdminPanel() {
+            // Ocultar secciones de admin inicialmente (añadir clase)
+            const adminSections = document.querySelectorAll('.add-section');
+            adminSections.forEach(section => {
+                section.classList.add('admin-sections');
+            });
+
+            // Agregar botones de edición a los items del menú
+            function addEditButtons() {
+                // Agregar botones de edición a los productos
+                const menuItems = document.querySelectorAll('.menu-item');
+                menuItems.forEach(item => {
+                    // Verificar si ya tiene botón de edición
+                    if (!item.querySelector('.item-edit-btn')) {
+                        const editBtn = document.createElement('button');
+                        editBtn.className = 'item-edit-btn';
+                        editBtn.innerHTML = '<i class="fas fa-pencil-alt"></i>';
+                        editBtn.setAttribute('data-id', item.getAttribute('data-id'));
+                        editBtn.setAttribute('data-type', 'product');
+
+                        // Posicionar el botón en el menú item
+                        item.style.position = 'relative';
+                        editBtn.style.position = 'absolute';
+                        editBtn.style.top = '10px';
+                        editBtn.style.right = '10px';
+
+                        item.appendChild(editBtn);
+
+                        // Evento para editar producto
+                        editBtn.addEventListener('click', function (e) {
+                            e.stopPropagation(); // Evitar que se agregue al ticket
+                            openEditModal('product', item.getAttribute('data-id'));
+                        });
+                    }
+                });
+
+                // Agregar botones de edición a las categorías
+                const categoryTabs = document.querySelectorAll('.tab-btn');
+                categoryTabs.forEach(tab => {
+                    // Verificar si ya tiene botón de edición
+                    if (!tab.querySelector('.category-edit-btn')) {
+                        const editBtn = document.createElement('button');
+                        editBtn.className = 'category-edit-btn';
+                        editBtn.innerHTML = '<i class="fas fa-pencil-alt"></i>';
+                        editBtn.setAttribute('data-category', tab.getAttribute('data-tab'));
+                        editBtn.setAttribute('data-type', 'category');
+
+                        // Evento para editar categoría
+                        editBtn.addEventListener('click', function (e) {
+                            e.stopPropagation(); // Evitar que se cambie de categoría
+                            openEditModal('category', tab.getAttribute('data-tab'));
+                        });
+
+                        tab.appendChild(editBtn);
+                    }
+                });
+            }
+
+            // Función para manejar el modo de administración
+            function toggleAdminMode() {
+                const body = document.body;
+                const adminToggle = document.getElementById('adminToggle');
+
+                if (body.classList.contains('admin-mode-active')) {
+                    // Desactivar modo admin
+                    body.classList.remove('admin-mode-active');
+                    adminToggle.innerHTML = '<i class="fas fa-lock"></i> Modo Admin';
+                } else {
+                    // Activar modo admin
+                    body.classList.add('admin-mode-active');
+                    adminToggle.innerHTML = '<i class="fas fa-lock-open"></i> Modo Admin Activo';
+
+                    // Agregar botones de edición cuando se activa el modo admin
+                    addEditButtons();
+                }
+            }
+
+            // Función para abrir el modal de edición
+            function openEditModal(type, id) {
+                const modal = document.getElementById('editModal');
+                const titleEl = document.getElementById('editModalTitle');
+                const nameInput = document.getElementById('editNameInput');
+                const priceInput = document.getElementById('editPriceInput');
+
+                // Reset previo
+                nameInput.value = '';
+                priceInput.value = '';
+                priceInput.style.display = 'none';
+
+                // Configurar según tipo
+                if (type === 'product') {
+                    // Buscar producto en todas las categorías
+                    let productFound = null;
+
+                    for (const category in menuData) {
+                        const product = menuData[category].find(p => p.id === id);
+                        if (product) {
+                            productFound = product;
+                            break;
+                        }
+                    }
+
+                    if (productFound) {
+                        titleEl.textContent = 'Editar Producto';
+                        nameInput.value = productFound.name;
+                        priceInput.style.display = 'block';
+                        priceInput.value = productFound.price;
+
+                        // Guardar referencia al producto actual
+                        modal.dataset.editType = 'product';
+                        modal.dataset.editId = id;
+                    }
+                } else if (type === 'category') {
+                    titleEl.textContent = 'Editar Categoría';
+                    nameInput.value = id; // El ID de la categoría es su nombre
+
+                    // Guardar referencia a la categoría actual
+                    modal.dataset.editType = 'category';
+                    modal.dataset.editId = id;
+                }
+
+                // Mostrar modal
+                modal.style.display = 'flex';
+            }
+
+            // Función para guardar cambios
+            function saveEditChanges() {
+                const modal = document.getElementById('editModal');
+                const type = modal.dataset.editType;
+                const id = modal.dataset.editId;
+                const newName = document.getElementById('editNameInput').value.trim();
+                const newPrice = document.getElementById('editPriceInput').value;
+
+                if (!newName) {
+                    UI.showErrorNotification('Ingrese un nombre válido');
+                    return;
+                }
+
+                // Aplicar cambios según tipo
+                if (type === 'product') {
+                    // Validar precio
+                    if (!newPrice || isNaN(parseFloat(newPrice)) || parseFloat(newPrice) <= 0) {
+                        UI.showErrorNotification('Ingrese un precio válido');
+                        return;
+                    }
+
+                    // Buscar y actualizar producto
+                    let productUpdated = false;
+
+                    for (const category in menuData) {
+                        const productIndex = menuData[category].findIndex(p => p.id === id);
+                        if (productIndex !== -1) {
+                            menuData[category][productIndex].name = newName;
+                            menuData[category][productIndex].price = parseFloat(newPrice);
+                            productUpdated = true;
+                            break;
+                        }
+                    }
+
+                    if (productUpdated) {
+                        // Guardar cambios y actualizar UI
+                        UI.saveMenuData();
+                        UI.renderMenuItems();
+                        UI.showAddNotification('Producto actualizado');
+                    }
+                } else if (type === 'category') {
+                    const oldCategory = id;
+
+                    // Verificar si ya existe la categoría con el nuevo nombre
+                    if (newName !== oldCategory && menuData[newName]) {
+                        UI.showErrorNotification('Ya existe una categoría con ese nombre');
+                        return;
+                    }
+
+                    // Crear nueva categoría con el nuevo nombre y copiar productos
+                    menuData[newName] = [...menuData[oldCategory]];
+
+                    // Eliminar categoría anterior si el nombre cambió
+                    if (newName !== oldCategory) {
+                        delete menuData[oldCategory];
+                    }
+
+                    // Guardar cambios y actualizar UI
+                    UI.saveMenuData();
+                    UI.renderMenuItems();
+                    UI.updateCategoryDropdown();
+                    UI.showAddNotification('Categoría actualizada');
+                }
+
+                // Cerrar modal
+                closeEditModal();
+            }
+
+            // Función para cerrar el modal
+            function closeEditModal() {
+                const modal = document.getElementById('editModal');
+                modal.style.display = 'none';
+            }
+
+            // Agregar listener para el botón de admin
+            const adminToggle = document.getElementById('adminToggle');
+            if (adminToggle) {
+                adminToggle.addEventListener('click', toggleAdminMode);
+            }
+
+            // Listeners para el modal de edición
+            const saveBtn = document.getElementById('editModalSave');
+            const cancelBtn = document.getElementById('editModalCancel');
+
+            if (saveBtn) {
+                saveBtn.addEventListener('click', saveEditChanges);
+            }
+
+            if (cancelBtn) {
+                cancelBtn.addEventListener('click', closeEditModal);
+            }
+
+            // Cerrar modal al hacer clic fuera
+            const modal = document.getElementById('editModal');
+            if (modal) {
+                modal.addEventListener('click', function (e) {
+                    if (e.target === modal) {
+                        closeEditModal();
+                    }
+                });
+            }
+
+            // Agregar función para actualizar botones de edición al renderizar
+            const originalRenderMenuItems = UI.renderMenuItems;
+            UI.renderMenuItems = function () {
+                originalRenderMenuItems.call(UI);
+
+                // Si el modo admin está activo, agregar botones de edición
+                if (document.body.classList.contains('admin-mode-active')) {
+                    setTimeout(addEditButtons, 100); // Pequeño retraso para asegurar que los elementos estén en el DOM
+                }
+            };
+        }
+
+        // Inicializar la aplicación cuando el DOM esté cargado
+        document.addEventListener('DOMContentLoaded', () => {
+            UI.init();
+
+            // Inicializar panel de admin
+            setTimeout(initAdminPanel, 500); // Pequeño retraso para asegurar que UI.init() haya terminado
+        });
+    </script>
+    <!-- <script src="{{asset(" /js/validation.js")}}"></script> -->
+</body>
+
+</html>
